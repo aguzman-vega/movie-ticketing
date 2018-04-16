@@ -53,8 +53,8 @@ public class TicketingController {
                 comingSoon.add(movie);
             }
         }
-        model.addAttribute("nowPlaying", movieDao.findAll());
-        model.addAttribute("comingSoon", movieDao.findAll());
+        model.addAttribute("nowPlaying", nowPlaying);
+        model.addAttribute("comingSoon", comingSoon);
         return "index";
     }
 }
