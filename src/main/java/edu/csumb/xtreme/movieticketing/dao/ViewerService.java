@@ -25,6 +25,11 @@ public class ViewerService {
         builder.withUsername(username);
         return viewerDao.save(builder.build());
     }
+    
+    public Optional<ViewerEntity> findViewer(int id){
+        return viewerDao.findById(id);
+    }
+
 
     public void deleteViewer(int viewerId) {
         viewerDao.deleteById(viewerId);
