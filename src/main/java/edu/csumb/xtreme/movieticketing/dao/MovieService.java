@@ -28,25 +28,4 @@ public class MovieService {
         movieDao.deleteById(id);
     }
 
-    // Method to determine if movie is NowPlaying
-    public boolean isNowPlaying(int  movieId) {
-        MovieEntity movieEntity = movieDao.getOne(movieId);;
-        LocalDate currentDate = LocalDate.now();
-        if (movieEntity.getReleaseDate().isBefore(currentDate)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // Method to determing if moview is ComingSoon
-    public boolean isComingSoon(int  movieId) {
-        MovieEntity movieEntity = movieDao.getOne(movieId);;
-        LocalDate currentDate = LocalDate.now();
-        if (movieEntity.getReleaseDate().isAfter(currentDate)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

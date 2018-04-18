@@ -2,10 +2,13 @@ package edu.csumb.xtreme.movieticketing;
 
 import edu.csumb.xtreme.movieticketing.dao.BookingDao;
 import edu.csumb.xtreme.movieticketing.dao.MovieDao;
-import edu.csumb.xtreme.movieticketing.dao.MovieService;
+
 import edu.csumb.xtreme.movieticketing.entities.MovieEntity;
 import java.util.ArrayList;
 import java.util.List;
+import edu.csumb.xtreme.movieticketing.criterias.Criteria;
+import edu.csumb.xtreme.movieticketing.criterias.CriteriaNowPlaying;
+import edu.csumb.xtreme.movieticketing.criterias.CriteriaComingSoon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,10 +23,6 @@ public class TicketingController {
 
     @Autowired
     BookingDao bookingDao;
-
-    @Autowired
-    private MovieService movieService;
-
 
     @GetMapping("/greeting")
     public String greeting(
@@ -43,18 +42,14 @@ public class TicketingController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        List<MovieEntity> nowPlaying = new ArrayList<>();
-        List<MovieEntity> comingSoon = new ArrayList<>();;
+        List<MovieEntity> movies = new ArrayList<>();
         for(MovieEntity movie : movieDao.findAll()) {
-            if(movieService.isNowPlaying(movie.getId())) {
-                nowPlaying.add(movie);
-            }
-            if(movieService.isComingSoon(movie.getId())) {
-                comingSoon.add(movie);
-            }
+            movies.add(movie);
         }
-        model.addAttribute("nowPlaying", nowPlaying);
-        model.addAttribute("comingSoon", comingSoon);
+        Criteria nowPlaying = new CriteriaNowPlaying();
+        Criteria comingSoon = new CriteriaComingSoon();
+        model.addAttribute("nowPlaying", nowPlaying.meetCriteria(movies));
+        model.addAttribute("comingSoon", comingSoon.meetCriteria(movies));
         return "index";
     }
 }

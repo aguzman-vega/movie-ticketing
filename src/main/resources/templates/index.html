@@ -74,8 +74,9 @@
 </div>
 <h1 align="center">Pick a Movie!
 
-  <form>
-    <select>
+  <form th:action="@{/movie}" th:object="${nowPlaying}" 
+  method = "get">
+    <select id = "nowPlaying" name="id">
       <option value="">Select Movie</option>
       <option th:each="movie : ${nowPlaying}"
               th:value="${movie.getId()}"
@@ -92,8 +93,9 @@
 </div>
 <h1 align="center">Pick a Movie!
 
-  <form>
-    <select>
+  <form th:action="@{/movie}" th:object="${comingSoon}"
+  method = "get">
+    <select id = "comingSoon" name="id">
       <option value="">Select Movie</option>
       <option th:each="movie : ${comingSoon}"
               	th:value="${movie.getId()}"
@@ -108,3 +110,4 @@
 </h1>
 </body>
 </html>
+
