@@ -23,6 +23,15 @@ public class BookingService {
             .withViewer(viewer);
         return bookingDao.save(builder.build());
     }
+    
+    public List<BookingEntity> getAllBooking(ViewerEntity viewer) {
+        return bookingDao.findAll();
+    }
+
+    public Optional<BookingEntity> findBooking(int id) {
+        return bookingDao.findById(id);
+    }
+
 
     public void deleteBooking(int id) {
         bookingDao.deleteById(id);
